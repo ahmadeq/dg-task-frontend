@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import type { Product } from "./helpers/types";
 import ProductCard from "./ProductCard";
-import Loader from "@/components/ui/Loader";
 import CheckAuth from "@/components/utilities/CheckAuth";
+import { Loader2 } from "lucide-react";
 
 function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -29,7 +29,7 @@ function ProductsPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <Loader className="w-24 h-24 md:w-36 md:h-36" />
+        <Loader2 className="animate-spin w-24 h-24 md:w-36 md:h-36" />
       </div>
     );
   }
@@ -39,18 +39,22 @@ function ProductsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-8 text-center p-4 border-2 border-black my-8">
-        OUR SNEAKERS
-      </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center md:justify-items-start">
-        {products.map((product) => (
-          <div key={product.id} className="w-full max-w-sm">
-            <ProductCard {...product} />
-          </div>
-        ))}
-      </div>
-    </div>
+    <main className="container mx-auto px-4 py-8">
+      <header>
+        <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-8 text-center p-4 border-2 border-black my-8">
+          OUR SNEAKERS
+        </h1>
+      </header>
+      <section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center md:justify-items-start">
+          {products.map((product) => (
+            <article key={product.id} className="w-full max-w-sm">
+              <ProductCard {...product} />
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
 

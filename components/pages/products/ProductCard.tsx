@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Button from "@/components/ui/Button";
 import { useState } from "react";
 import type { ProductCardProps } from "./helpers/types";
+import { Button } from "@/components/ui/button";
+import LoaderOrChild from "@/components/ui/loader-or-child";
+import { toast } from "@/hooks/use-toast";
 
 export default function ProductCard({
   name,
@@ -19,7 +21,11 @@ export default function ProductCard({
     // Simulating an API call that adds item to cart
     setTimeout(() => {
       setLoading(false);
-      alert(`Added ${name} to cart!`);
+      toast({
+        variant: "success",
+        title: "Success",
+        description: `Added ${name} to cart!`,
+      });
     }, 1000);
   };
 
@@ -58,12 +64,8 @@ export default function ProductCard({
           )}
         </div>
         <div className="mt-auto">
-          <Button
-            onClick={handleAddToCart}
-            loading={loading}
-            className="w-full"
-          >
-            Add to Cart
+          <Button onClick={handleAddToCart} className="w-full">
+            <LoaderOrChild loading={loading}>Add to Cart</LoaderOrChild>
           </Button>
         </div>
       </div>
